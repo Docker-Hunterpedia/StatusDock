@@ -12,7 +12,6 @@ build-dir = "book"
 [output.html]
 git-repository-url = "https://github.com/Docker-Hunterpedia/StatusDock"
 edit-url-template = "https://github.com/Docker-Hunterpedia/StatusDock/edit/main/docs/src/{path}"
-site-url = "/StatusDock/"
 default-theme = "light"
 preferred-dark-theme = "navy"
 smart-punctuation = true
