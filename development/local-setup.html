@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-e7ae1298.js";
+            window.path_to_searchindex_js = "../searchindex-e484f973.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-6612f5e2.js"></script>
@@ -191,8 +191,8 @@
 <h2 id="quick-start-with-docker"><a class="header" href="#quick-start-with-docker">Quick Start with Docker</a></h2>
 <p>The easiest way to develop locally is using the included Docker Compose configuration.</p>
 <pre><code class="language-bash"># Clone the repository
-git clone https://github.com/Hostzero-GmbH/yet-another-status-page.git
-cd yet-another-status-page
+git clone https://github.com/Docker-Hunterpedia/StatusDock.git
+cd StatusDock
 
 # Start the development environment
 docker compose -f docker-compose.dev.yml up -d postgres  # Start only the database
@@ -221,18 +221,18 @@ brew install postgresql@16
 brew services start postgresql@16
 
 # Create database
-createdb hostzero_status
+createdb statusdock_db
 </code></pre>
 <h3 id="2-clone-and-install"><a class="header" href="#2-clone-and-install">2. Clone and Install</a></h3>
-<pre><code class="language-bash">git clone https://github.com/Hostzero-GmbH/yet-another-status-page.git
-cd yet-another-status-page
+<pre><code class="language-bash">git clone https://github.com/Docker-Hunterpedia/StatusDock.git
+cd StatusDock
 npm install
 </code></pre>
 <h3 id="3-configure-environment"><a class="header" href="#3-configure-environment">3. Configure Environment</a></h3>
 <pre><code class="language-bash">cp .env.example .env
 </code></pre>
 <p>Edit <code>.env</code>:</p>
-<pre><code class="language-env">DATABASE_URI=postgres://localhost:5432/hostzero_status
+<pre><code class="language-env">DATABASE_URI=postgres://localhost:5432/statusdock_db
 PAYLOAD_SECRET=your-development-secret-key
 SERVER_URL=http://localhost:3000
 </code></pre>
@@ -309,7 +309,7 @@ npm run build
 psql $DATABASE_URI
 
 # Reset database
-dropdb hostzero_status &amp;&amp; createdb hostzero_status
+dropdb statusdock_db &amp;&amp; createdb statusdock_db
 npm run payload migrate
 </code></pre>
 <h3 id="clear-cache"><a class="header" href="#clear-cache">Clear Cache</a></h3>

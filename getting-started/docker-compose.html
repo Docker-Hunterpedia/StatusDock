@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-e7ae1298.js";
+            window.path_to_searchindex_js = "../searchindex-e484f973.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-6612f5e2.js"></script>
@@ -184,15 +184,15 @@
 <p>This guide explains how to deploy StatusDock using Docker Compose.</p>
 <h2 id="quick-start"><a class="header" href="#quick-start">Quick Start</a></h2>
 <h3 id="1-clone-the-repository"><a class="header" href="#1-clone-the-repository">1. Clone the Repository</a></h3>
-<pre><code class="language-bash">git clone https://github.com/Hostzero-GmbH/yet-another-status-page.git
-cd yet-another-status-page
+<pre><code class="language-bash">git clone https://github.com/Docker-Hunterpedia/StatusDock.git
+cd StatusDock
 </code></pre>
 <h3 id="2-create-environment-file"><a class="header" href="#2-create-environment-file">2. Create Environment File</a></h3>
 <pre><code class="language-bash">cp .env.example .env
 </code></pre>
 <p>Edit <code>.env</code> with your configuration:</p>
 <pre><code class="language-env"># Database
-DATABASE_URI=postgres://hostzero:your-secure-password@db:5432/hostzero_status
+DATABASE_URI=postgres://statusdock:your-secure-password@db:5432/statusdock_db
 POSTGRES_PASSWORD=your-secure-password
 
 # Security
@@ -218,7 +218,7 @@ SERVER_URL=https://status.yourdomain.com
 
 services:
   app:
-    image: ghcr.io/hostzero-gmbh/status-page:latest
+    image: ghcr.io/docker-hunterpedia/statusdock:latest
     # Or build from source:
     # build:
     #   context: ./cms
@@ -239,13 +239,13 @@ services:
   db:
     image: postgres:16-alpine
     environment:
-      - POSTGRES_USER=hostzero
+      - POSTGRES_USER=statusdock
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=hostzero_status
+      - POSTGRES_DB=statusdock_db
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U hostzero -d hostzero_status"]
+      test: ["CMD-SHELL", "pg_isready -U statusdock -d statusdock_db"]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -261,7 +261,7 @@ volumes:
 
 services:
   app:
-    image: ghcr.io/hostzero-gmbh/status-page:latest
+    image: ghcr.io/docker-hunterpedia/statusdock:latest
     environment:
       - DATABASE_URI=${DATABASE_URI}
       - PAYLOAD_SECRET=${PAYLOAD_SECRET}
@@ -285,13 +285,13 @@ services:
   db:
     image: postgres:16-alpine
     environment:
-      - POSTGRES_USER=hostzero
+      - POSTGRES_USER=statusdock
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=hostzero_status
+      - POSTGRES_DB=statusdock_db
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U hostzero -d hostzero_status"]
+      test: ["CMD-SHELL", "pg_isready -U statusdock -d statusdock_db"]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -325,7 +325,7 @@ services:
     restart: unless-stopped
 
   app:
-    image: ghcr.io/hostzero-gmbh/status-page:latest
+    image: ghcr.io/docker-hunterpedia/statusdock:latest
     environment:
       - DATABASE_URI=${DATABASE_URI}
       - PAYLOAD_SECRET=${PAYLOAD_SECRET}
@@ -340,13 +340,13 @@ services:
   db:
     image: postgres:16-alpine
     environment:
-      - POSTGRES_USER=hostzero
+      - POSTGRES_USER=statusdock
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=hostzero_status
+      - POSTGRES_DB=statusdock_db
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U hostzero -d hostzero_status"]
+      test: ["CMD-SHELL", "pg_isready -U statusdock -d statusdock_db"]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -366,10 +366,10 @@ docker compose up -d
 </code></pre>
 <h2 id="backup--restore"><a class="header" href="#backup--restore">Backup &amp; Restore</a></h2>
 <h3 id="backup-database"><a class="header" href="#backup-database">Backup Database</a></h3>
-<pre><code class="language-bash">docker compose exec db pg_dump -U hostzero hostzero_status &gt; backup.sql
+<pre><code class="language-bash">docker compose exec db pg_dump -U statusdock statusdock_db &gt; backup.sql
 </code></pre>
 <h3 id="restore-database"><a class="header" href="#restore-database">Restore Database</a></h3>
-<pre><code class="language-bash">cat backup.sql | docker compose exec -T db psql -U hostzero hostzero_status
+<pre><code class="language-bash">cat backup.sql | docker compose exec -T db psql -U statusdock statusdock_db
 </code></pre>
 <h3 id="backup-uploads"><a class="header" href="#backup-uploads">Backup Uploads</a></h3>
 <pre><code class="language-bash">docker compose cp app:/app/public/media ./media-backup

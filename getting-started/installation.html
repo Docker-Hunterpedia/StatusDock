@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-e7ae1298.js";
+            window.path_to_searchindex_js = "../searchindex-e484f973.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-6612f5e2.js"></script>
@@ -190,7 +190,7 @@
 <h2 id="deployment-options"><a class="header" href="#deployment-options">Deployment Options</a></h2>
 <h3 id="option-1-vercel-one-click"><a class="header" href="#option-1-vercel-one-click">Option 1: Vercel (One-Click)</a></h3>
 <p>Deploy instantly to Vercel with a managed PostgreSQL database:</p>
-<p><a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FHostzero-GmbH%2Fyet-another-status-page&amp;env=PAYLOAD_SECRET&amp;envDescription=Required%20environment%20variables%20for%20Yet%20Another%20Status%20Page&amp;envLink=https%3A%2F%2Fhostzero-gmbh.github.io%2Fyet-another-status-page%2Fgetting-started%2Fconfiguration%2F&amp;project-name=yet-another-status-page&amp;repository-name=yet-another-status-page&amp;stores=%5B%7B%22type%22%3A%22postgres%22%7D%5D"><img src="https://vercel.com/button" alt="Deploy with Vercel"></a></p>
+<p><a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FDocker-Hunterpedia%2FStatusDock&amp;env=PAYLOAD_SECRET&amp;envDescription=Required%20environment%20variables%20for%20StatusDock&amp;project-name=statusdock&amp;repository-name=statusdock&amp;stores=%5B%7B%22type%22%3A%22postgres%22%7D%5D"><img src="https://vercel.com/button" alt="Deploy with Vercel"></a></p>
 <p>This will:</p>
 <ol>
 <li>Create a new Vercel project</li>
@@ -201,8 +201,8 @@
 <h3 id="option-2-docker-compose-recommended-for-self-hosting"><a class="header" href="#option-2-docker-compose-recommended-for-self-hosting">Option 2: Docker Compose (Recommended for Self-Hosting)</a></h3>
 <p>The easiest way to self-host. See the <a href="docker-compose.html">Docker Compose guide</a> for detailed instructions.</p>
 <pre><code class="language-bash"># Clone the repository
-git clone https://github.com/Hostzero-GmbH/yet-another-status-page.git
-cd yet-another-status-page
+git clone https://github.com/Docker-Hunterpedia/StatusDock.git
+cd StatusDock
 
 # Copy the example environment file
 cp .env.example .env
@@ -215,7 +215,7 @@ docker compose up -d
 </code></pre>
 <h3 id="option-3-pre-built-docker-image"><a class="header" href="#option-3-pre-built-docker-image">Option 3: Pre-built Docker Image</a></h3>
 <p>Pull the latest image from GitHub Container Registry:</p>
-<pre><code class="language-bash">docker pull ghcr.io/hostzero-gmbh/status-page:latest
+<pre><code class="language-bash">docker pull ghcr.io/docker-hunterpedia/statusdock:latest
 </code></pre>
 <p>Run with your own PostgreSQL:</p>
 <pre><code class="language-bash">docker run -d \
@@ -224,12 +224,12 @@ docker compose up -d
   -e DATABASE_URI=postgres://user:pass@host:5432/db \
   -e PAYLOAD_SECRET=your-secret-key \
   -e SERVER_URL=https://status.example.com \
-  ghcr.io/hostzero-gmbh/status-page:latest
+  ghcr.io/docker-hunterpedia/statusdock:latest
 </code></pre>
 <h3 id="option-4-build-from-source"><a class="header" href="#option-4-build-from-source">Option 4: Build from Source</a></h3>
 <pre><code class="language-bash"># Clone the repository
-git clone https://github.com/Hostzero-GmbH/yet-another-status-page.git
-cd yet-another-status-page
+git clone https://github.com/Docker-Hunterpedia/StatusDock.git
+cd StatusDock
 
 # Install dependencies
 npm install

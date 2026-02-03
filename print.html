@@ -36,7 +36,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-e7ae1298.js";
+            window.path_to_searchindex_js = "searchindex-e484f973.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-6612f5e2.js"></script>
@@ -230,7 +230,7 @@ docker compose up -d
 <h2 id="deployment-options"><a class="header" href="#deployment-options">Deployment Options</a></h2>
 <h3 id="option-1-vercel-one-click"><a class="header" href="#option-1-vercel-one-click">Option 1: Vercel (One-Click)</a></h3>
 <p>Deploy instantly to Vercel with a managed PostgreSQL database:</p>
-<p><a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FHostzero-GmbH%2Fyet-another-status-page&amp;env=PAYLOAD_SECRET&amp;envDescription=Required%20environment%20variables%20for%20Yet%20Another%20Status%20Page&amp;envLink=https%3A%2F%2Fhostzero-gmbh.github.io%2Fyet-another-status-page%2Fgetting-started%2Fconfiguration%2F&amp;project-name=yet-another-status-page&amp;repository-name=yet-another-status-page&amp;stores=%5B%7B%22type%22%3A%22postgres%22%7D%5D"><img src="https://vercel.com/button" alt="Deploy with Vercel"></a></p>
+<p><a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FDocker-Hunterpedia%2FStatusDock&amp;env=PAYLOAD_SECRET&amp;envDescription=Required%20environment%20variables%20for%20StatusDock&amp;project-name=statusdock&amp;repository-name=statusdock&amp;stores=%5B%7B%22type%22%3A%22postgres%22%7D%5D"><img src="https://vercel.com/button" alt="Deploy with Vercel"></a></p>
 <p>This will:</p>
 <ol>
 <li>Create a new Vercel project</li>
@@ -241,8 +241,8 @@ docker compose up -d
 <h3 id="option-2-docker-compose-recommended-for-self-hosting"><a class="header" href="#option-2-docker-compose-recommended-for-self-hosting">Option 2: Docker Compose (Recommended for Self-Hosting)</a></h3>
 <p>The easiest way to self-host. See the <a href="#docker-compose-setup">Docker Compose guide</a> for detailed instructions.</p>
 <pre><code class="language-bash"># Clone the repository
-git clone https://github.com/Hostzero-GmbH/yet-another-status-page.git
-cd yet-another-status-page
+git clone https://github.com/Docker-Hunterpedia/StatusDock.git
+cd StatusDock
 
 # Copy the example environment file
 cp .env.example .env
@@ -255,7 +255,7 @@ docker compose up -d
 </code></pre>
 <h3 id="option-3-pre-built-docker-image"><a class="header" href="#option-3-pre-built-docker-image">Option 3: Pre-built Docker Image</a></h3>
 <p>Pull the latest image from GitHub Container Registry:</p>
-<pre><code class="language-bash">docker pull ghcr.io/hostzero-gmbh/status-page:latest
+<pre><code class="language-bash">docker pull ghcr.io/docker-hunterpedia/statusdock:latest
 </code></pre>
 <p>Run with your own PostgreSQL:</p>
 <pre><code class="language-bash">docker run -d \
@@ -264,12 +264,12 @@ docker compose up -d
   -e DATABASE_URI=postgres://user:pass@host:5432/db \
   -e PAYLOAD_SECRET=your-secret-key \
   -e SERVER_URL=https://status.example.com \
-  ghcr.io/hostzero-gmbh/status-page:latest
+  ghcr.io/docker-hunterpedia/statusdock:latest
 </code></pre>
 <h3 id="option-4-build-from-source"><a class="header" href="#option-4-build-from-source">Option 4: Build from Source</a></h3>
 <pre><code class="language-bash"># Clone the repository
-git clone https://github.com/Hostzero-GmbH/yet-another-status-page.git
-cd yet-another-status-page
+git clone https://github.com/Docker-Hunterpedia/StatusDock.git
+cd StatusDock
 
 # Install dependencies
 npm install
@@ -313,15 +313,15 @@ npm start
 <p>This guide explains how to deploy StatusDock using Docker Compose.</p>
 <h2 id="quick-start-1"><a class="header" href="#quick-start-1">Quick Start</a></h2>
 <h3 id="1-clone-the-repository"><a class="header" href="#1-clone-the-repository">1. Clone the Repository</a></h3>
-<pre><code class="language-bash">git clone https://github.com/Hostzero-GmbH/yet-another-status-page.git
-cd yet-another-status-page
+<pre><code class="language-bash">git clone https://github.com/Docker-Hunterpedia/StatusDock.git
+cd StatusDock
 </code></pre>
 <h3 id="2-create-environment-file"><a class="header" href="#2-create-environment-file">2. Create Environment File</a></h3>
 <pre><code class="language-bash">cp .env.example .env
 </code></pre>
 <p>Edit <code>.env</code> with your configuration:</p>
 <pre><code class="language-env"># Database
-DATABASE_URI=postgres://hostzero:your-secure-password@db:5432/hostzero_status
+DATABASE_URI=postgres://statusdock:your-secure-password@db:5432/statusdock_db
 POSTGRES_PASSWORD=your-secure-password
 
 # Security
@@ -347,7 +347,7 @@ SERVER_URL=https://status.yourdomain.com
 
 services:
   app:
-    image: ghcr.io/hostzero-gmbh/status-page:latest
+    image: ghcr.io/docker-hunterpedia/statusdock:latest
     # Or build from source:
     # build:
     #   context: ./cms
@@ -368,13 +368,13 @@ services:
   db:
     image: postgres:16-alpine
     environment:
-      - POSTGRES_USER=hostzero
+      - POSTGRES_USER=statusdock
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=hostzero_status
+      - POSTGRES_DB=statusdock_db
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U hostzero -d hostzero_status"]
+      test: ["CMD-SHELL", "pg_isready -U statusdock -d statusdock_db"]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -390,7 +390,7 @@ volumes:
 
 services:
   app:
-    image: ghcr.io/hostzero-gmbh/status-page:latest
+    image: ghcr.io/docker-hunterpedia/statusdock:latest
     environment:
       - DATABASE_URI=${DATABASE_URI}
       - PAYLOAD_SECRET=${PAYLOAD_SECRET}
@@ -414,13 +414,13 @@ services:
   db:
     image: postgres:16-alpine
     environment:
-      - POSTGRES_USER=hostzero
+      - POSTGRES_USER=statusdock
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=hostzero_status
+      - POSTGRES_DB=statusdock_db
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U hostzero -d hostzero_status"]
+      test: ["CMD-SHELL", "pg_isready -U statusdock -d statusdock_db"]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -454,7 +454,7 @@ services:
     restart: unless-stopped
 
   app:
-    image: ghcr.io/hostzero-gmbh/status-page:latest
+    image: ghcr.io/docker-hunterpedia/statusdock:latest
     environment:
       - DATABASE_URI=${DATABASE_URI}
       - PAYLOAD_SECRET=${PAYLOAD_SECRET}
@@ -469,13 +469,13 @@ services:
   db:
     image: postgres:16-alpine
     environment:
-      - POSTGRES_USER=hostzero
+      - POSTGRES_USER=statusdock
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=hostzero_status
+      - POSTGRES_DB=statusdock_db
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U hostzero -d hostzero_status"]
+      test: ["CMD-SHELL", "pg_isready -U statusdock -d statusdock_db"]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -495,10 +495,10 @@ docker compose up -d
 </code></pre>
 <h2 id="backup--restore"><a class="header" href="#backup--restore">Backup &amp; Restore</a></h2>
 <h3 id="backup-database"><a class="header" href="#backup-database">Backup Database</a></h3>
-<pre><code class="language-bash">docker compose exec db pg_dump -U hostzero hostzero_status &gt; backup.sql
+<pre><code class="language-bash">docker compose exec db pg_dump -U statusdock statusdock_db &gt; backup.sql
 </code></pre>
 <h3 id="restore-database"><a class="header" href="#restore-database">Restore Database</a></h3>
-<pre><code class="language-bash">cat backup.sql | docker compose exec -T db psql -U hostzero hostzero_status
+<pre><code class="language-bash">cat backup.sql | docker compose exec -T db psql -U statusdock statusdock_db
 </code></pre>
 <h3 id="backup-uploads"><a class="header" href="#backup-uploads">Backup Uploads</a></h3>
 <pre><code class="language-bash">docker compose cp app:/app/public/media ./media-backup
@@ -1414,8 +1414,8 @@ Details: https://status.example.com/m/xyz789
 <h2 id="quick-start-with-docker"><a class="header" href="#quick-start-with-docker">Quick Start with Docker</a></h2>
 <p>The easiest way to develop locally is using the included Docker Compose configuration.</p>
 <pre><code class="language-bash"># Clone the repository
-git clone https://github.com/Hostzero-GmbH/yet-another-status-page.git
-cd yet-another-status-page
+git clone https://github.com/Docker-Hunterpedia/StatusDock.git
+cd StatusDock
 
 # Start the development environment
 docker compose -f docker-compose.dev.yml up -d postgres  # Start only the database
@@ -1444,18 +1444,18 @@ brew install postgresql@16
 brew services start postgresql@16
 
 # Create database
-createdb hostzero_status
+createdb statusdock_db
 </code></pre>
 <h3 id="2-clone-and-install"><a class="header" href="#2-clone-and-install">2. Clone and Install</a></h3>
-<pre><code class="language-bash">git clone https://github.com/Hostzero-GmbH/yet-another-status-page.git
-cd yet-another-status-page
+<pre><code class="language-bash">git clone https://github.com/Docker-Hunterpedia/StatusDock.git
+cd StatusDock
 npm install
 </code></pre>
 <h3 id="3-configure-environment"><a class="header" href="#3-configure-environment">3. Configure Environment</a></h3>
 <pre><code class="language-bash">cp .env.example .env
 </code></pre>
 <p>Edit <code>.env</code>:</p>
-<pre><code class="language-env">DATABASE_URI=postgres://localhost:5432/hostzero_status
+<pre><code class="language-env">DATABASE_URI=postgres://localhost:5432/statusdock_db
 PAYLOAD_SECRET=your-development-secret-key
 SERVER_URL=http://localhost:3000
 </code></pre>
@@ -1532,7 +1532,7 @@ npm run build
 psql $DATABASE_URI
 
 # Reset database
-dropdb hostzero_status &amp;&amp; createdb hostzero_status
+dropdb statusdock_db &amp;&amp; createdb statusdock_db
 npm run payload migrate
 </code></pre>
 <h3 id="clear-cache"><a class="header" href="#clear-cache">Clear Cache</a></h3>
