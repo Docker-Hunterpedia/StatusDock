@@ -1,0 +1,18 @@
+[book]
+title = "StatusDock"
+description = "A modern status page built with Payload CMS and Next.js"
+authors = ["Hostzero GmbH"]
+authors = ["Docker-Hunterpedia Team"]
+authors = ["Oday Bakkour"]
+language = "en"
+
+[build]
+build-dir = "book"
+
+[output.html]
+git-repository-url = "https://github.com/Docker-Hunterpedia/StatusDock"
+edit-url-template = "https://github.com/Docker-Hunterpedia/StatusDock/edit/main/docs/src/{path}"
+site-url = "/StatusDock/"
+default-theme = "light"
+preferred-dark-theme = "navy"
+smart-punctuation = true

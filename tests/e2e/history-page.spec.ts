@@ -1,0 +1,143 @@
+import { test, expect } from '@playwright/test'
+import { createIncident } from '../utils/payload-helpers'
+
+/**
+ * History Page Tests
+ * 
+ * Tests for incident history navigation and week views.
+ * Note: /history redirects to /history/[date] with previous week's Monday
+ * (current week is shown on the main status page).
+ */
+
+function getPreviousWeekSlug(): string {
+  const today = new Date()
+  const day = today.getDay()
+  const diff = today.getDate() - day + (day === 0 ? -6 : 1) // Monday of current week
+  today.setDate(diff)
+  today.setDate(today.getDate() - 7) // Go back one week
+  return today.toISOString().split('T')[0]
+}
+
+function getPreviousWeekDate(): Date {
+  const today = new Date()
+  const day = today.getDay()
+  const diff = today.getDate() - day + (day === 0 ? -6 : 1)
+  today.setDate(diff)
+  today.setDate(today.getDate() - 7) // Go back one week
+  today.setHours(12, 0, 0, 0) // Set to noon to avoid timezone issues
+  return today
+}
+
+test.describe('History Page', () => {
+  test('week page loads correctly', async ({ page }) => {
+    const weekSlug = getPreviousWeekSlug()
+    await page.goto(`/history/${weekSlug}`)
+    
+    // Should show week heading
+    await expect(page.getByRole('heading').first()).toBeVisible()
+  })
+
+  test('has back to status link', async ({ page }) => {
+    const weekSlug = getPreviousWeekSlug()
+    await page.goto(`/history/${weekSlug}`)
+    
+    // Click back link
+    const backLink = page.getByRole('link', { name: /Back to current status/i })
+    await expect(backLink).toBeVisible()
+    await backLink.click()
+    
+    // Should navigate to home
+    await expect(page).toHaveURL('/')
+  })
+
+  test('shows navigation between weeks', async ({ page }) => {
+    const weekSlug = getPreviousWeekSlug()
+    await page.goto(`/history/${weekSlug}`)
+    
+    // Should have previous week navigation
+    await expect(page.getByRole('link', { name: /Previous week/i })).toBeVisible()
+  })
+
+  test('redirects current week to previous week', async ({ page }) => {
+    // Calculate current week's Monday
+    const today = new Date()
+    const day = today.getDay()
+    const diff = today.getDate() - day + (day === 0 ? -6 : 1)
+    today.setDate(diff)
+    const currentWeekSlug = today.toISOString().split('T')[0]
+    
+    // Navigate to current week
+    await page.goto(`/history/${currentWeekSlug}`)
+    
+    // Should redirect to previous week
+    const previousWeekSlug = getPreviousWeekSlug()
+    await expect(page).toHaveURL(`/history/${previousWeekSlug}`)
+  })
+})
+
+test.describe('History Week Page', () => {
+  test('displays incidents for the week', async ({ page }) => {
+    const uniqueId = Date.now()
+    const previousWeekDate = getPreviousWeekDate()
+    
+    // Create an incident dated in the previous week
+    await createIncident({
+      title: `Weekly History Test Incident ${uniqueId}`,
+      updates: [{ 
+        status: 'resolved', 
+        message: 'Fixed.',
+        createdAt: previousWeekDate.toISOString(),
+      }],
+      // Set incident creation date to previous week
+      createdAt: previousWeekDate.toISOString(),
+    })
+    
+    // Navigate to previous week (where history starts)
+    const weekSlug = getPreviousWeekSlug()
+    await page.goto(`/history/${weekSlug}`)
+    
+    // Should show the incident
+    await expect(page.getByText(`Weekly History Test Incident ${uniqueId}`)).toBeVisible()
+  })
+
+  test('shows no incidents message when week is empty', async ({ page }) => {
+    // Navigate to a past date with no incidents
+    const pastDate = new Date()
+    pastDate.setFullYear(pastDate.getFullYear() - 2)
+    const day = pastDate.getDay()
+    const diff = pastDate.getDate() - day + (day === 0 ? -6 : 1)
+    pastDate.setDate(diff)
+    const dateSlug = pastDate.toISOString().split('T')[0]
+    
+    await page.goto(`/history/${dateSlug}`)
+    
+    // Should show no incidents message (use first() to handle multiple matches)
+    await expect(page.getByText(/No incidents reported/i).first()).toBeVisible()
+  })
+
+  test('incidents link to detail pages', async ({ page }) => {
+    const uniqueId = Date.now()
+    const previousWeekDate = getPreviousWeekDate()
+    
+    const incident = await createIncident({
+      title: `Clickable History Link ${uniqueId}`,
+      updates: [{ 
+        status: 'resolved', 
+        message: 'Done.',
+        createdAt: previousWeekDate.toISOString(),
+      }],
+      // Set incident creation date to previous week
+      createdAt: previousWeekDate.toISOString(),
+    })
+    
+    // Navigate to previous week
+    const weekSlug = getPreviousWeekSlug()
+    await page.goto(`/history/${weekSlug}`)
+    
+    // Click on incident
+    await page.getByText(`Clickable History Link ${uniqueId}`).first().click()
+    
+    // Should navigate to incident detail page
+    await expect(page).toHaveURL(new RegExp(`/i/${incident.shortId}`))
+  })
+})
