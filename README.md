@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="public/statusdock-logo.png" alt="StatusDock Logo" width="250" height="250" style="margin-bottom: 20px;">
+
 # 🚢 StatusDock
 
 **A Modern, Self-Hosted Status Page Solution**
