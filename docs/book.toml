@@ -1,8 +1,6 @@
 [book]
 title = "StatusDock"
 description = "A modern status page built with Payload CMS and Next.js"
-authors = ["Hostzero GmbH"]
-authors = ["Docker-Hunterpedia Team"]
 authors = ["Oday Bakkour"]
 language = "en"
 
