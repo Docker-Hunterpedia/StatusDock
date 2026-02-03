@@ -7,8 +7,8 @@ This guide explains how to deploy StatusDock using Docker Compose.
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/Hostzero-GmbH/yet-another-status-page.git
-cd yet-another-status-page
+git clone https://github.com/Docker-Hunterpedia/StatusDock.git
+cd StatusDock
 ```
 
 ### 2. Create Environment File
@@ -21,7 +21,7 @@ Edit `.env` with your configuration:
 
 ```env
 # Database
-DATABASE_URI=postgres://hostzero:your-secure-password@db:5432/hostzero_status
+DATABASE_URI=postgres://statusdock:your-secure-password@db:5432/statusdock_db
 POSTGRES_PASSWORD=your-secure-password
 
 # Security
@@ -53,7 +53,7 @@ version: '3.8'
 
 services:
   app:
-    image: ghcr.io/hostzero-gmbh/status-page:latest
+    image: ghcr.io/docker-hunterpedia/statusdock:latest
     # Or build from source:
     # build:
     #   context: ./cms
@@ -74,13 +74,13 @@ services:
   db:
     image: postgres:16-alpine
     environment:
-      - POSTGRES_USER=hostzero
+      - POSTGRES_USER=statusdock
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=hostzero_status
+      - POSTGRES_DB=statusdock_db
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U hostzero -d hostzero_status"]
+      test: ["CMD-SHELL", "pg_isready -U statusdock -d statusdock_db"]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -100,7 +100,7 @@ version: '3.8'
 
 services:
   app:
-    image: ghcr.io/hostzero-gmbh/status-page:latest
+    image: ghcr.io/docker-hunterpedia/statusdock:latest
     environment:
       - DATABASE_URI=${DATABASE_URI}
       - PAYLOAD_SECRET=${PAYLOAD_SECRET}
@@ -124,13 +124,13 @@ services:
   db:
     image: postgres:16-alpine
     environment:
-      - POSTGRES_USER=hostzero
+      - POSTGRES_USER=statusdock
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=hostzero_status
+      - POSTGRES_DB=statusdock_db
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U hostzero -d hostzero_status"]
+      test: ["CMD-SHELL", "pg_isready -U statusdock -d statusdock_db"]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -167,7 +167,7 @@ services:
     restart: unless-stopped
 
   app:
-    image: ghcr.io/hostzero-gmbh/status-page:latest
+    image: ghcr.io/docker-hunterpedia/statusdock:latest
     environment:
       - DATABASE_URI=${DATABASE_URI}
       - PAYLOAD_SECRET=${PAYLOAD_SECRET}
@@ -182,13 +182,13 @@ services:
   db:
     image: postgres:16-alpine
     environment:
-      - POSTGRES_USER=hostzero
+      - POSTGRES_USER=statusdock
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=hostzero_status
+      - POSTGRES_DB=statusdock_db
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U hostzero -d hostzero_status"]
+      test: ["CMD-SHELL", "pg_isready -U statusdock -d statusdock_db"]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -216,13 +216,13 @@ docker compose up -d
 ### Backup Database
 
 ```bash
-docker compose exec db pg_dump -U hostzero hostzero_status > backup.sql
+docker compose exec db pg_dump -U statusdock statusdock_db > backup.sql
 ```
 
 ### Restore Database
 
 ```bash
-cat backup.sql | docker compose exec -T db psql -U hostzero hostzero_status
+cat backup.sql | docker compose exec -T db psql -U statusdock statusdock_db
 ```
 
 ### Backup Uploads

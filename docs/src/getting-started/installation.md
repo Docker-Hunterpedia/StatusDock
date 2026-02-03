@@ -13,7 +13,7 @@ Yet Another Status Page can be deployed in several ways. Choose the method that 
 
 Deploy instantly to Vercel with a managed PostgreSQL database:
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FHostzero-GmbH%2Fyet-another-status-page&env=PAYLOAD_SECRET&envDescription=Required%20environment%20variables%20for%20Yet%20Another%20Status%20Page&envLink=https%3A%2F%2Fhostzero-gmbh.github.io%2Fyet-another-status-page%2Fgetting-started%2Fconfiguration%2F&project-name=yet-another-status-page&repository-name=yet-another-status-page&stores=%5B%7B%22type%22%3A%22postgres%22%7D%5D)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FDocker-Hunterpedia%2FStatusDock&env=PAYLOAD_SECRET&envDescription=Required%20environment%20variables%20for%20StatusDock&project-name=statusdock&repository-name=statusdock&stores=%5B%7B%22type%22%3A%22postgres%22%7D%5D)
 
 This will:
 1. Create a new Vercel project
@@ -28,8 +28,8 @@ The easiest way to self-host. See the [Docker Compose guide](docker-compose.md) 
 
 ```bash
 # Clone the repository
-git clone https://github.com/Hostzero-GmbH/yet-another-status-page.git
-cd yet-another-status-page
+git clone https://github.com/Docker-Hunterpedia/StatusDock.git
+cd StatusDock
 
 # Copy the example environment file
 cp .env.example .env
@@ -46,7 +46,7 @@ docker compose up -d
 Pull the latest image from GitHub Container Registry:
 
 ```bash
-docker pull ghcr.io/hostzero-gmbh/status-page:latest
+docker pull ghcr.io/docker-hunterpedia/statusdock:latest
 ```
 
 Run with your own PostgreSQL:
@@ -58,15 +58,15 @@ docker run -d \
   -e DATABASE_URI=postgres://user:pass@host:5432/db \
   -e PAYLOAD_SECRET=your-secret-key \
   -e SERVER_URL=https://status.example.com \
-  ghcr.io/hostzero-gmbh/status-page:latest
+  ghcr.io/docker-hunterpedia/statusdock:latest
 ```
 
 ### Option 4: Build from Source
 
 ```bash
 # Clone the repository
-git clone https://github.com/Hostzero-GmbH/yet-another-status-page.git
-cd yet-another-status-page
+git clone https://github.com/Docker-Hunterpedia/StatusDock.git
+cd StatusDock
 
 # Install dependencies
 npm install

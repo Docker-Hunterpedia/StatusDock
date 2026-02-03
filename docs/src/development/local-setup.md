@@ -14,8 +14,8 @@ The easiest way to develop locally is using the included Docker Compose configur
 
 ```bash
 # Clone the repository
-git clone https://github.com/Hostzero-GmbH/yet-another-status-page.git
-cd yet-another-status-page
+git clone https://github.com/Docker-Hunterpedia/StatusDock.git
+cd StatusDock
 
 # Start the development environment
 docker compose -f docker-compose.dev.yml up -d postgres  # Start only the database
@@ -46,14 +46,14 @@ brew install postgresql@16
 brew services start postgresql@16
 
 # Create database
-createdb hostzero_status
+createdb statusdock_db
 ```
 
 ### 2. Clone and Install
 
 ```bash
-git clone https://github.com/Hostzero-GmbH/yet-another-status-page.git
-cd yet-another-status-page
+git clone https://github.com/Docker-Hunterpedia/StatusDock.git
+cd StatusDock
 npm install
 ```
 
@@ -66,7 +66,7 @@ cp .env.example .env
 Edit `.env`:
 
 ```env
-DATABASE_URI=postgres://localhost:5432/hostzero_status
+DATABASE_URI=postgres://localhost:5432/statusdock_db
 PAYLOAD_SECRET=your-development-secret-key
 SERVER_URL=http://localhost:3000
 ```
@@ -155,7 +155,7 @@ npm run build
 psql $DATABASE_URI
 
 # Reset database
-dropdb hostzero_status && createdb hostzero_status
+dropdb statusdock_db && createdb statusdock_db
 npm run payload migrate
 ```
 
