@@ -22,7 +22,7 @@ Keep your users informed with real-time service status updates, incident trackin
 
 ## 📖 About
 
-StatusDock is a powerful, modern status page platform built with [Next.js 15](https://nextjs.org/) and [Payload CMS 3.x](https://payloadcms.com/). It provides a beautiful, responsive interface for communicating service status, incidents, and maintenance windows to your users.
+StatusDock is a powerful, modern status page platform built with [Next.js 15](https://nextjs.org/) and your choice of [Payload CMS 3.x](https://payloadcms.com/) or [Strapi v5](https://strapi.io/). It provides a beautiful, responsive interface for communicating service status, incidents, and maintenance windows to your users.
 
 Unlike SaaS solutions, StatusDock is **completely self-hosted**, giving you full control over your data, infrastructure, and customization. Whether you're running a small startup or a large enterprise, StatusDock scales with your needs.
 
@@ -34,6 +34,7 @@ Unlike SaaS solutions, StatusDock is **completely self-hosted**, giving you full
 - 🎨 **Beautiful UI** — Modern, responsive design with dark mode support out of the box
 - 🚀 **Production-Ready** — Built with enterprise-grade technologies and best practices
 - 🔧 **Highly Customizable** — Full access to source code for unlimited customization
+- 🔄 **CMS Flexibility** — Choose between PayloadCMS or Strapi v5 as your headless CMS backend
 
 ## ✨ Features
 
@@ -129,7 +130,7 @@ StatusDock is built with modern, production-ready technologies:
 | Component | Technology | Version |
 |-----------|-----------|---------|
 | **Framework** | [Next.js](https://nextjs.org/) | 15.x (App Router) |
-| **CMS** | [Payload CMS](https://payloadcms.com/) | 3.x |
+| **CMS** | [Payload CMS](https://payloadcms.com/) or [Strapi](https://strapi.io/) | 3.x / 5.x |
 | **Database** | [PostgreSQL](https://www.postgresql.org/) | 16+ |
 | **Styling** | [Tailwind CSS](https://tailwindcss.com/) | 3.x |
 | **Rich Text** | [Lexical Editor](https://lexical.dev/) | Latest |
@@ -137,6 +138,15 @@ StatusDock is built with modern, production-ready technologies:
 | **SMS** | [Twilio](https://www.twilio.com/) | API v2010 |
 | **Language** | [TypeScript](https://www.typescriptlang.org/) | 5.x |
 | **Testing** | [Playwright](https://playwright.dev/) | E2E Tests |
+
+### CMS Options
+
+StatusDock supports two powerful headless CMS options:
+
+- **PayloadCMS** (Default) — Code-first, TypeScript-native CMS with built-in admin UI
+- **Strapi v5** — Admin-first, flexible CMS with visual content type builder
+
+Choose the one that best fits your team's workflow. See [docs/strapi-setup.md](docs/strapi-setup.md) for Strapi configuration.
 
 ## 🎯 Use Cases
 

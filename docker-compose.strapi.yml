@@ -1,0 +1,107 @@
+# Docker Compose Configuration for StatusDock with Strapi v5
+#
+# This configuration runs StatusDock with Strapi as the CMS backend
+# 
+# Services:
+# - app: StatusDock Next.js application
+# - strapi: Strapi v5 CMS
+# - db: PostgreSQL database (shared by both)
+
+services:
+  app:
+    image: ghcr.io/hostzero-gmbh/status-page:latest
+    # Uncomment to build from source instead:
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      # CMS Configuration
+      - CMS_PROVIDER=strapi
+      - STRAPI_URL=http://strapi:1337
+      - STRAPI_API_TOKEN=${STRAPI_API_TOKEN}
+      - STRAPI_ADMIN_TOKEN=${STRAPI_ADMIN_TOKEN}
+      
+      # Server Configuration
+      - SERVER_URL=${SERVER_URL:-http://localhost:3000}
+      
+      # Database (for any StatusDock-specific data if needed)
+      - DATABASE_URI=postgres://hostzero:${POSTGRES_PASSWORD:-changeme}@db:5432/hostzero_status
+      
+      # Payload (kept for backward compatibility, not used with Strapi)
+      - PAYLOAD_SECRET=${PAYLOAD_SECRET:-change-this-to-a-random-32-char-string}
+    depends_on:
+      db:
+        condition: service_healthy
+      strapi:
+        condition: service_healthy
+    restart: unless-stopped
+    volumes:
+      - uploads:/app/public/media
+
+  strapi:
+    image: strapi/strapi:5.6.0
+    # Or build from your custom Strapi project:
+    # build:
+    #   context: ./strapi
+    #   dockerfile: Dockerfile
+    ports:
+      - "1337:1337"
+    environment:
+      # Database Configuration
+      - DATABASE_CLIENT=postgres
+      - DATABASE_HOST=db
+      - DATABASE_PORT=5432
+      - DATABASE_NAME=hostzero_status_strapi
+      - DATABASE_USERNAME=hostzero
+      - DATABASE_PASSWORD=${POSTGRES_PASSWORD:-changeme}
+      - DATABASE_SSL=false
+      
+      # Strapi Configuration
+      - APP_KEYS=${STRAPI_APP_KEYS:-tobemodified,tobemodified,tobemodified,tobemodified}
+      - API_TOKEN_SALT=${STRAPI_API_TOKEN_SALT:-tobemodified}
+      - ADMIN_JWT_SECRET=${STRAPI_ADMIN_JWT_SECRET:-tobemodified}
+      - TRANSFER_TOKEN_SALT=${STRAPI_TRANSFER_TOKEN_SALT:-tobemodified}
+      - JWT_SECRET=${STRAPI_JWT_SECRET:-tobemodified}
+      
+      # Server Configuration
+      - HOST=0.0.0.0
+      - PORT=1337
+      - NODE_ENV=production
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:1337/_health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    volumes:
+      - strapi_data:/opt/app/public/uploads
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_USER=hostzero
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-changeme}
+      # Create both databases on startup
+      - POSTGRES_DB=hostzero_status
+      - POSTGRES_MULTIPLE_DATABASES=hostzero_status_strapi
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      # Script to create multiple databases
+      - ./scripts/postgres-init.sh:/docker-entrypoint-initdb.d/postgres-init.sh
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hostzero"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  strapi_data:
+  uploads:
