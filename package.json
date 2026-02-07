@@ -1,7 +1,7 @@
 {
   "name": "statusdock",
   "version": "1.0.0",
-  "description": "A modern, self-hosted status page built with Payload CMS and Next.js",
+  "description": "A modern, self-hosted status page built with Payload CMS or Strapi and Next.js",
   "type": "module",
   "scripts": {
     "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev --turbopack",
