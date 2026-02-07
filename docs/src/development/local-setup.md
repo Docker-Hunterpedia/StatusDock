@@ -8,7 +8,11 @@ This guide explains how to set up StatusDock for local development.
 - PostgreSQL 15+ (or Docker)
 - npm or pnpm
 
-## Quick Start with Docker
+## CMS Backend Choice
+
+StatusDock supports both Payload CMS (default) and Strapi v5. This guide covers Payload CMS setup. For Strapi development, see the [Strapi Setup Guide](../../strapi-setup.md).
+
+## Quick Start with Docker (Payload CMS)
 
 The easiest way to develop locally is using the included Docker Compose configuration.
 

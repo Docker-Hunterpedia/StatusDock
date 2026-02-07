@@ -1,6 +1,6 @@
 # Admin Overview
 
-The Yet Another Status Page admin panel is powered by Payload CMS and provides a comprehensive interface for managing your status page.
+The StatusDock admin panel is powered by your choice of Payload CMS or Strapi v5, providing a comprehensive interface for managing your status page.
 
 ## Dashboard
 

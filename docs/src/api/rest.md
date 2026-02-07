@@ -2,6 +2,8 @@
 
 StatusDock provides a REST API for programmatic access to status data.
 
+> **Note**: The API structure is consistent regardless of whether you're using Payload CMS or Strapi as your backend, thanks to the CMS adapter layer.
+
 ## Base URL
 
 ```
@@ -117,11 +119,23 @@ Content-Type: application/json
 }
 ```
 
-## Payload REST API
+## CMS Backend API
 
-The full Payload REST API is available at `/api`. See the [Payload documentation](https://payloadcms.com/docs/rest-api/overview) for complete details.
+Depending on your `CMS_PROVIDER` setting, additional CMS-specific API endpoints are available:
 
-### Common Patterns
+### Payload CMS
+
+When using Payload CMS, the full Payload REST API is available at `/api`. See the [Payload documentation](https://payloadcms.com/docs/rest-api/overview) for complete details.
+
+### Strapi v5
+
+When using Strapi, access the Strapi API directly at your `STRAPI_URL`. See the [Strapi documentation](https://docs.strapi.io/dev-docs/api/rest) for details.
+
+StatusDock's frontend uses the unified CMS adapter layer, so the status page works the same regardless of backend.
+
+## Common Query Patterns
+
+These patterns work with the StatusDock API endpoints:
 
 #### Filtering
 
@@ -149,17 +163,21 @@ GET /api/incidents?select[title]=true&select[status]=true
 
 ## GraphQL
 
-A GraphQL endpoint is available at:
+GraphQL endpoints are available depending on your CMS backend:
 
+**Payload CMS:**
 ```
 POST /api/graphql
 ```
 
 GraphQL Playground (development only):
-
 ```
 GET /api/graphql-playground
 ```
+
+**Strapi v5:**
+- GraphQL plugin must be installed separately
+- Available at `{STRAPI_URL}/graphql`
 
 ## Rate Limiting
 

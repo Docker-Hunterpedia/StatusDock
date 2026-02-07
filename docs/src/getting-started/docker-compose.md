@@ -2,6 +2,8 @@
 
 This guide explains how to deploy StatusDock using Docker Compose.
 
+> **CMS Backend**: This guide covers Payload CMS (default). For Strapi setup, see the [Strapi Setup Guide](../../strapi-setup.md) and [CMS Selection Guide](cms-selection.md).
+
 ## Quick Start
 
 ### 1. Clone the Repository

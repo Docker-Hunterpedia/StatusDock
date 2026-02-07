@@ -5,6 +5,7 @@
 # Getting Started
 
 - [Installation](./getting-started/installation.md)
+- [Choosing Your CMS](./getting-started/cms-selection.md)
 - [Docker Compose](./getting-started/docker-compose.md)
 - [Configuration](./getting-started/configuration.md)
 
@@ -21,6 +22,12 @@
 
 - [Local Setup](./development/local-setup.md)
 - [Architecture](./development/architecture.md)
+
+# CMS Backend Guides
+
+- [Strapi Setup](../strapi-setup.md)
+- [CMS Adapter Usage](../cms-adapter-usage.md)
+- [Implementation Details](../strapi-implementation-summary.md)
 
 # API Reference
 

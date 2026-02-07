@@ -2,6 +2,29 @@
 
 StatusDock is configured through environment variables and the admin panel.
 
+## CMS Provider Selection
+
+StatusDock supports two CMS backends: **Payload CMS** (default) and **Strapi v5**. See the [CMS Selection Guide](cms-selection.md) for help choosing.
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `CMS_PROVIDER` | CMS backend to use (`payload` or `strapi`) | `payload` |
+
+### For Payload CMS (Default)
+
+No additional configuration needed beyond the required variables below.
+
+### For Strapi v5
+
+Additional variables required:
+
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `STRAPI_URL` | Strapi API endpoint URL | `http://localhost:1337` |
+| `STRAPI_API_TOKEN` | Strapi API token with full access | `your-strapi-api-token-here` |
+
+See the [Strapi Setup Guide](../../strapi-setup.md) for complete setup instructions.
+
 ## Environment Variables
 
 ### Required
@@ -9,7 +32,7 @@ StatusDock is configured through environment variables and the admin panel.
 | Variable | Description | Example |
 |----------|-------------|---------|
 | `DATABASE_URI` | PostgreSQL connection string | `postgres://user:pass@host:5432/db` |
-| `PAYLOAD_SECRET` | Secret key for encryption (min 32 chars) - [Generate one](https://payloadsecret.com/) | `your-super-secret-key-here-32ch` |
+| `PAYLOAD_SECRET` | Secret key for encryption (min 32 chars) - [Generate one](https://payloadsecret.com/) - **Required only for Payload CMS** | `your-super-secret-key-here-32ch` |
 | `SERVER_URL` | Public URL of your status page | `https://status.example.com` |
 
 > **Note**: On Vercel, both `POSTGRES_URL` and `SERVER_URL` are automatically detected:

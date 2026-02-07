@@ -1,6 +1,6 @@
 # StatusDock
 
-A modern, self-hosted status page built with [Payload CMS](https://payloadcms.com/) and [Next.js](https://nextjs.org/).
+A modern, self-hosted status page with your choice of [Payload CMS](https://payloadcms.com/) or [Strapi v5](https://strapi.io/), built on [Next.js](https://nextjs.org/).
 
 ## Features
 
@@ -11,6 +11,7 @@ A modern, self-hosted status page built with [Payload CMS](https://payloadcms.co
 - 🎨 **Beautiful UI** - Modern, responsive status page with dark mode support
 - 🔒 **Self-Hosted** - Full control over your data and infrastructure
 - 🐳 **Docker Ready** - Easy deployment with Docker and Docker Compose
+- 🔄 **CMS Flexibility** - Choose between Payload CMS or Strapi v5
 
 ## Quick Start
 
@@ -31,10 +32,11 @@ Visit `http://localhost:3000` to see your status page, and `http://localhost:300
 ┌─────────────────────────────────────────────────────────────┐
 │                      StatusDock                            │
 ├─────────────────────────────────────────────────────────────┤
-│  Frontend (Next.js)          │  Admin Panel (Payload CMS)   │
-│  - Status Page               │  - Manage Services           │
-│  - Incident History          │  - Create Incidents          │
-│  - Subscribe Form            │  - Schedule Maintenances     │
+│  Frontend (Next.js)          │  CMS Backend                 │
+│  - Status Page               │  (Payload CMS or Strapi v5)  │
+│  - Incident History          │  - Manage Services           │
+│  - Subscribe Form            │  - Create Incidents          │
+│                              │  - Schedule Maintenances     │
 │                              │  - Send Notifications        │
 ├─────────────────────────────────────────────────────────────┤
 │                     PostgreSQL Database                      │

@@ -1,11 +1,13 @@
 # Installation
 
-Yet Another Status Page can be deployed in several ways. Choose the method that best fits your infrastructure.
+StatusDock can be deployed in several ways. Choose the method that best fits your infrastructure.
 
 ## Prerequisites
 
 - Docker and Docker Compose (recommended)
 - OR Node.js 20+ and PostgreSQL 15+
+
+> **CMS Backend**: StatusDock supports both Payload CMS (default) and Strapi v5. See the [CMS Selection Guide](cms-selection.md) to choose which backend to use.
 
 ## Deployment Options
 
