@@ -248,8 +248,27 @@ export class StrapiAdapter implements CMSAdapter {
 
   async count(collection: string, options: FindOptions = {}): Promise<{ totalDocs: number }> {
     const strapiCollection = COLLECTION_MAP[collection] || collection
-    const query = this.buildStrapiQuery({ ...options, limit: 1 }) // We only need the count
-    const path = `/api/${strapiCollection}${query ? `?${query}` : ''}`
+    // Build query with filters but minimal data fetch
+    const params = new URLSearchParams()
+    
+    // Add pagination to minimize data transfer (pageSize=1 is the smallest)
+    params.append('pagination[pageSize]', '1')
+    
+    // Add filters if provided
+    if (options.where) {
+      Object.entries(options.where).forEach(([key, value]) => {
+        if (typeof value === 'object' && value !== null) {
+          Object.entries(value).forEach(([operator, operatorValue]) => {
+            const strapiOperator = this.mapOperator(operator)
+            params.append(`filters[${key}][${strapiOperator}]`, String(operatorValue))
+          })
+        } else {
+          params.append(`filters[${key}][$eq]`, String(value))
+        }
+      })
+    }
+    
+    const path = `/api/${strapiCollection}?${params.toString()}`
 
     const response = await this.client.get<{
       meta: {

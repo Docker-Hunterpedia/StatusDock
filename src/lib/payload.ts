@@ -27,7 +27,7 @@ export const getCachedPayload = cache(async () => {
  * Deduplicates settings fetches within a single request
  * Works with both PayloadCMS and Strapi
  */
-export const getSettings = cache(async (): Promise<Setting | Settings> => {
+export const getSettings = cache(async (): Promise<Settings> => {
   const provider = getCMSProvider()
   
   if (provider === 'payload') {
@@ -35,7 +35,7 @@ export const getSettings = cache(async (): Promise<Setting | Settings> => {
     return payload.findGlobal({
       slug: 'settings',
       depth: 1,
-    }) as Promise<Setting>
+    }) as Promise<Settings>
   } else {
     // Use CMS adapter for Strapi
     const cms = getCMS()
