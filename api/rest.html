@@ -35,10 +35,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-e484f973.js";
+            window.path_to_searchindex_js = "../searchindex-17171715.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-6612f5e2.js"></script>
+        <script src="../toc-31a8cf48.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -182,6 +182,9 @@
                     <main>
                         <h1 id="rest-api"><a class="header" href="#rest-api">REST API</a></h1>
 <p>StatusDock provides a REST API for programmatic access to status data.</p>
+<blockquote>
+<p><strong>Note</strong>: The API structure is consistent regardless of whether you’re using Payload CMS or Strapi as your backend, thanks to the CMS adapter layer.</p>
+</blockquote>
 <h2 id="base-url"><a class="header" href="#base-url">Base URL</a></h2>
 <pre><code>https://your-status-page.com/api
 </code></pre>
@@ -258,9 +261,15 @@ Content-Type: application/json
   "token": "unsubscribe-token"
 }
 </code></pre>
-<h2 id="payload-rest-api"><a class="header" href="#payload-rest-api">Payload REST API</a></h2>
-<p>The full Payload REST API is available at <code>/api</code>. See the <a href="https://payloadcms.com/docs/rest-api/overview">Payload documentation</a> for complete details.</p>
-<h3 id="common-patterns"><a class="header" href="#common-patterns">Common Patterns</a></h3>
+<h2 id="cms-backend-api"><a class="header" href="#cms-backend-api">CMS Backend API</a></h2>
+<p>Depending on your <code>CMS_PROVIDER</code> setting, additional CMS-specific API endpoints are available:</p>
+<h3 id="payload-cms"><a class="header" href="#payload-cms">Payload CMS</a></h3>
+<p>When using Payload CMS, the full Payload REST API is available at <code>/api</code>. See the <a href="https://payloadcms.com/docs/rest-api/overview">Payload documentation</a> for complete details.</p>
+<h3 id="strapi-v5"><a class="header" href="#strapi-v5">Strapi v5</a></h3>
+<p>When using Strapi, access the Strapi API directly at your <code>STRAPI_URL</code>. See the <a href="https://docs.strapi.io/dev-docs/api/rest">Strapi documentation</a> for details.</p>
+<p>StatusDock’s frontend uses the unified CMS adapter layer, so the status page works the same regardless of backend.</p>
+<h2 id="common-query-patterns"><a class="header" href="#common-query-patterns">Common Query Patterns</a></h2>
+<p>These patterns work with the StatusDock API endpoints:</p>
 <h4 id="filtering"><a class="header" href="#filtering">Filtering</a></h4>
 <pre><code class="language-http">GET /api/incidents?where[status][equals]=investigating
 </code></pre>
@@ -274,12 +283,18 @@ Content-Type: application/json
 <pre><code class="language-http">GET /api/incidents?select[title]=true&amp;select[status]=true
 </code></pre>
 <h2 id="graphql"><a class="header" href="#graphql">GraphQL</a></h2>
-<p>A GraphQL endpoint is available at:</p>
+<p>GraphQL endpoints are available depending on your CMS backend:</p>
+<p><strong>Payload CMS:</strong></p>
 <pre><code>POST /api/graphql
 </code></pre>
 <p>GraphQL Playground (development only):</p>
 <pre><code>GET /api/graphql-playground
 </code></pre>
+<p><strong>Strapi v5:</strong></p>
+<ul>
+<li>GraphQL plugin must be installed separately</li>
+<li>Available at <code>{STRAPI_URL}/graphql</code></li>
+</ul>
 <h2 id="rate-limiting"><a class="header" href="#rate-limiting">Rate Limiting</a></h2>
 <p>Public endpoints are rate limited to prevent abuse:</p>
 <ul>
@@ -317,7 +332,7 @@ Content-Type: application/json
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../development/architecture.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../strapi-implementation-summary.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
@@ -328,7 +343,7 @@ Content-Type: application/json
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../development/architecture.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../strapi-implementation-summary.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 

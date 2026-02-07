@@ -35,10 +35,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-e484f973.js";
+            window.path_to_searchindex_js = "searchindex-17171715.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-6612f5e2.js"></script>
+        <script src="toc-31a8cf48.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -181,7 +181,7 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="statusdock"><a class="header" href="#statusdock">StatusDock</a></h1>
-<p>A modern, self-hosted status page built with <a href="https://payloadcms.com/">Payload CMS</a> and <a href="https://nextjs.org/">Next.js</a>.</p>
+<p>A modern, self-hosted status page with your choice of <a href="https://payloadcms.com/">Payload CMS</a> or <a href="https://strapi.io/">Strapi v5</a>, built on <a href="https://nextjs.org/">Next.js</a>.</p>
 <h2 id="features"><a class="header" href="#features">Features</a></h2>
 <ul>
 <li>🚨 <strong>Incident Management</strong> - Track and communicate service disruptions</li>
@@ -191,6 +191,7 @@
 <li>🎨 <strong>Beautiful UI</strong> - Modern, responsive status page with dark mode support</li>
 <li>🔒 <strong>Self-Hosted</strong> - Full control over your data and infrastructure</li>
 <li>🐳 <strong>Docker Ready</strong> - Easy deployment with Docker and Docker Compose</li>
+<li>🔄 <strong>CMS Flexibility</strong> - Choose between Payload CMS or Strapi v5</li>
 </ul>
 <h2 id="quick-start"><a class="header" href="#quick-start">Quick Start</a></h2>
 <pre><code class="language-bash"># Clone the repository
@@ -205,10 +206,11 @@ docker compose up -d
 <pre><code>┌─────────────────────────────────────────────────────────────┐
 │                      StatusDock                            │
 ├─────────────────────────────────────────────────────────────┤
-│  Frontend (Next.js)          │  Admin Panel (Payload CMS)   │
-│  - Status Page               │  - Manage Services           │
-│  - Incident History          │  - Create Incidents          │
-│  - Subscribe Form            │  - Schedule Maintenances     │
+│  Frontend (Next.js)          │  CMS Backend                 │
+│  - Status Page               │  (Payload CMS or Strapi v5)  │
+│  - Incident History          │  - Manage Services           │
+│  - Subscribe Form            │  - Create Incidents          │
+│                              │  - Schedule Maintenances     │
 │                              │  - Send Notifications        │
 ├─────────────────────────────────────────────────────────────┤
 │                     PostgreSQL Database                      │
