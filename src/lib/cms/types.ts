@@ -198,6 +198,11 @@ export interface CMSAdapter {
   find<T>(collection: string, options?: FindOptions): Promise<FindResult<T>>
 
   /**
+   * Count documents in a collection
+   */
+  count(collection: string, options?: FindOptions): Promise<{ totalDocs: number }>
+
+  /**
    * Find one document by ID
    */
   findByID<T>(collection: string, id: string | number, depth?: number): Promise<T>

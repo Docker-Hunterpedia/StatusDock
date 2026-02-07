@@ -40,6 +40,17 @@ export class PayloadAdapter implements CMSAdapter {
     return result as FindResult<T>
   }
 
+  async count(collection: string, options: FindOptions = {}): Promise<{ totalDocs: number }> {
+    const payload = await this.getPayloadInstance()
+    
+    const result = await payload.count({
+      collection,
+      where: options.where,
+    })
+
+    return { totalDocs: result.totalDocs }
+  }
+
   async findByID<T>(collection: string, id: string | number, depth: number = 1): Promise<T> {
     const payload = await this.getPayloadInstance()
     

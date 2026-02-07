@@ -246,6 +246,22 @@ export class StrapiAdapter implements CMSAdapter {
     return this.normalizeStrapiDoc(response.data) as T
   }
 
+  async count(collection: string, options: FindOptions = {}): Promise<{ totalDocs: number }> {
+    const strapiCollection = COLLECTION_MAP[collection] || collection
+    const query = this.buildStrapiQuery({ ...options, limit: 1 }) // We only need the count
+    const path = `/api/${strapiCollection}${query ? `?${query}` : ''}`
+
+    const response = await this.client.get<{
+      meta: {
+        pagination: {
+          total: number
+        }
+      }
+    }>(path)
+
+    return { totalDocs: response.meta.pagination.total }
+  }
+
   async findOne<T>(
     collection: string,
     where: Record<string, any>,
