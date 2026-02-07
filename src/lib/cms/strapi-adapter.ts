@@ -251,7 +251,8 @@ export class StrapiAdapter implements CMSAdapter {
     // Build query with filters but minimal data fetch
     const params = new URLSearchParams()
     
-    // Add pagination to minimize data transfer (pageSize=1 is the smallest)
+    // Use minimal pageSize to reduce data transfer while still getting total count from metadata
+    // Strapi returns pagination.total in the response metadata regardless of pageSize
     params.append('pagination[pageSize]', '1')
     
     // Add filters if provided
