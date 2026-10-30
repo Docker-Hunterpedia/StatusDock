@@ -1,7 +1,6 @@
 import { cache } from 'react'
 import { getPayload } from 'payload'
 import config from '@payload-config'
-import type { Setting } from '@/payload-types'
 import { getCMS, getCMSProvider } from '@/lib/cms'
 import type { Settings } from '@/lib/cms/types'
 
