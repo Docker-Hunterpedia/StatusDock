@@ -9,7 +9,7 @@
 
 services:
   app:
-    image: ghcr.io/hostzero-gmbh/status-page:latest
+    image: ghcr.io/docker-hunterpedia/statusdock:latest
     # Uncomment to build from source instead:
     # build:
     #   context: .

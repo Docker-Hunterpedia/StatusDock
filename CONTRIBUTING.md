@@ -31,7 +31,7 @@ By participating in this project, you agree to maintain a welcoming and inclusiv
 
 ## Development Setup
 
-For detailed setup instructions, see the [Local Development Guide](https://hostzero-gmbh.github.io/yet-another-status-page/development/local-setup/).
+For detailed setup instructions, see the [Local Development Guide](https://docker-hunterpedia.github.io/StatusDock/development/local-setup.html).
 
 ### Quick Start
 
