@@ -23,8 +23,10 @@ export function getServerUrl(): string {
  * Extract URL from a Payload Media field
  * Handles both populated Media objects and unpopulated number references
  */
-export function getMediaUrl(media: number | Media | null | undefined): string | undefined {
+export function getMediaUrl(
+  media: string | number | Pick<Media, "url"> | null | undefined,
+): string | undefined {
   if (!media) return undefined;
-  if (typeof media === "number") return undefined;
+  if (typeof media !== "object") return undefined;
   return media.url || undefined;
 }

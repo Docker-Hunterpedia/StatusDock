@@ -130,6 +130,9 @@ export interface Settings {
   siteName: string
   metaTitle?: string
   metaDescription?: string
+  historyMetaTitle?: string
+  historyMetaDescription?: string
+  favicon?: Media | string | number
   logoLight?: Media | string | number
   logoDark?: Media | string | number
   footerText?: string

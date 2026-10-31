@@ -6,9 +6,11 @@ import './globals.css'
 
 export const dynamic = 'force-dynamic'
 
-function getMediaMimeType(media: number | Media | null | undefined): string | undefined {
+function getMediaMimeType(
+  media: string | number | Pick<Media, 'mimeType'> | null | undefined,
+): string | undefined {
   if (!media) return undefined
-  if (typeof media === 'number') return undefined
+  if (typeof media !== 'object') return undefined
   return media.mimeType || undefined
 }
 
